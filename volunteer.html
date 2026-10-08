@@ -57,23 +57,174 @@
   <section class="page-hero">
     <div class="inner">
       <div class="breadcrumbs"><a href="index.html">Home</a> / Volunteer</div>
+      <div class="eyebrow">Mentorship. Leadership. Service.</div>
       <h1>Give your time. Strengthen the network.</h1>
-      <p>Volunteers help The ROCKS create meaningful opportunities for mentorship, leadership, and service across our community.</p>
+      <p>Find a meaningful way to serve, share the skills you bring, and help The ROCKS make a difference in our chapters and communities.</p>
+      <div class="volunteer-hero-actions">
+        <a class="btn btn-gold" href="login.html?role=volunteer">Become a Volunteer</a>
+        <a class="btn volunteer-btn-outline" href="#opportunities">Find Opportunities</a>
+      </div>
     </div>
   </section>
-  <section class="section">
+  <div class="volunteer-notice" role="note">
+    <strong>Prototype data notice:</strong> This demo saves information only in this browser. Do not enter sensitive or real member information. A production system needs secure sign-in, role-based access, and a shared ClubExpress-connected database.
+  </div>
+  <section class="demo-session-bar" id="demo-session" aria-label="Demo session" hidden>
+    <div><span class="demo-session-label">Current demo view</span><strong id="demo-session-role"></strong></div>
+    <div class="demo-session-actions"><a href="login.html">Switch demo view</a><button class="btn btn-outline" id="demo-sign-out" type="button">Sign out</button></div>
+  </section>
+  <section class="section member-dashboard" id="my-activity" hidden>
     <div class="section-head">
-      <div class="eyebrow">Get involved</div>
-      <h2>Make a difference through service</h2>
-      <p>Whether you have a little time or want to take on a larger role, connect with us to learn how your skills can support ROCKS members and chapters.</p>
+      <div class="eyebrow">My volunteer activity</div>
+      <h2>Welcome back, <span id="member-dashboard-name">volunteer</span>.</h2>
+      <p>Your personal snapshot keeps applications and service activity easy to follow.</p>
     </div>
-    <div class="cards-3">
-      <article class="info-card"><h3>Support a Chapter</h3><p>Help local chapters coordinate events, welcome members, and build community.</p></article>
-      <article class="info-card"><h3>Share Your Experience</h3><p>Contribute your knowledge to mentoring, leadership development, or career conversations.</p></article>
-      <article class="info-card"><h3>Help Behind the Scenes</h3><p>Support outreach, communications, and other activities that advance the mission.</p></article>
+    <div class="member-status-update" id="member-status-update" role="status" aria-live="polite" hidden>
+      <strong id="member-status-title"></strong>
+      <p id="member-status-message"></p>
+      <span id="member-status-date"></span>
     </div>
-    <p style="margin-top:28px"><a class="btn btn-gold" href="contact.html">Ask about volunteering</a></p>
+    <div class="member-metrics">
+      <article class="member-metric"><strong id="member-applications-count">0</strong><span>Applications</span></article>
+      <article class="member-metric"><strong id="member-pending-count">0</strong><span>Awaiting review</span></article>
+      <article class="member-metric"><strong id="member-approved-hours">0</strong><span>Approved hours</span></article>
+      <article class="member-metric"><strong id="member-profile-completion">0%</strong><span>Profile complete</span></article>
+    </div>
+    <div class="member-activity-panel">
+      <div><h3>My applications</h3><div id="member-application-list"></div></div>
+      <div class="member-dashboard-actions">
+      <a class="btn btn-dark" id="update-member-profile" href="#volunteer-profile">Update my profile</a>
+        <a class="btn btn-outline" href="#opportunities">Find an opportunity</a>
+      </div>
+    </div>
   </section>
+  <div class="role-prompt" id="role-prompt">
+    <strong>Want to volunteer or manage a chapter roster?</strong>
+    <span>Choose a demo view to see the right tools for your role.</span>
+    <a href="login.html">Open demo sign-in</a>
+  </div>
+  <section class="volunteer-stats" aria-label="Volunteer impact">
+    <div class="volunteer-stat"><strong id="volunteer-count">0</strong><span>Volunteers in this demo</span></div>
+    <div class="volunteer-stat"><strong id="hours-count">0</strong><span>Approved service hours</span></div>
+    <div class="volunteer-stat"><strong id="opportunity-count">0</strong><span>Open opportunities</span></div>
+    <div class="volunteer-stat"><strong>One ROCKS community</strong><span>Serving through mentorship, leadership, and connection</span></div>
+  </section>
+
+  <section class="section volunteer-section" id="opportunities">
+    <div class="section-head">
+      <div class="eyebrow">Find your fit</div>
+      <h2>Explore volunteer opportunities</h2>
+      <p>Browse ways to contribute. Each opportunity explains the work, time commitment, and who it supports—so you can choose what works for you.</p>
+    </div>
+    <div class="opportunity-grid" id="opportunity-list" aria-live="polite"></div>
+    <p class="empty-state" id="opportunity-empty" hidden>No opportunities are open right now. Check back soon.</p>
+  </section>
+
+  <section class="volunteer-profile-band" id="volunteer-profile" hidden>
+    <div class="section volunteer-profile-layout">
+      <div class="profile-intro">
+        <div class="eyebrow">Your volunteer profile</div>
+        <h2>Tell us how you’d like to serve.</h2>
+        <p>Share your interests, experience, and availability once. In this demo, your profile stays in this browser and can be updated any time.</p>
+        <div class="profile-progress-wrap">
+          <div class="profile-progress-heading"><span>Profile completion</span><strong id="profile-progress-label">0%</strong></div>
+          <div class="profile-progress" role="progressbar" aria-label="Profile completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="profile-progress"><span></span></div>
+        </div>
+        <p class="profile-small">Your information should only be shared with authorized volunteer leaders in a real, secure system.</p>
+      </div>
+      <form class="panel volunteer-form" id="volunteer-form">
+        <input type="hidden" id="profile-id">
+        <h3>Volunteer information</h3>
+        <p class="form-hint" id="profile-form-hint">Fields marked with * are required. Please fill in your own information; details are not prefilled.</p>
+        <div class="form-grid">
+          <div class="field"><label for="vol-name">Full name *</label><input id="vol-name" name="name" autocomplete="name" required maxlength="100"></div>
+          <div class="field"><label for="vol-type">Member type *</label><select id="vol-type" name="memberType" required><option value="">Select one</option><option>Active</option><option>Retired</option><option>Lifelong</option><option>Guest volunteer</option></select></div>
+          <div class="field"><label for="vol-email">Email *</label><input id="vol-email" name="email" type="email" autocomplete="email" required maxlength="160"></div>
+          <div class="field"><label for="vol-phone">Telephone</label><input id="vol-phone" name="phone" type="tel" autocomplete="tel" maxlength="40"></div>
+          <div class="field"><label for="vol-chapter">Chapter</label><input id="vol-chapter" name="chapter" maxlength="100" placeholder="e.g., Capital Region"></div>
+          <div class="field"><label for="vol-city">City</label><input id="vol-city" name="city" autocomplete="address-level2" maxlength="80"></div>
+          <div class="field"><label for="vol-state">State</label><input id="vol-state" name="state" autocomplete="address-level1" maxlength="40"></div>
+          <div class="field"><label for="vol-timezone">Time zone</label><select id="vol-timezone" name="timeZone"><option value="">Select one</option><option>Eastern</option><option>Central</option><option>Mountain</option><option>Pacific</option><option>Alaska</option><option>Hawaii-Aleutian</option><option>Other</option></select></div>
+          <div class="field"><label for="vol-service">Service category</label><select id="vol-service" name="serviceCategory"><option value="">Select one</option><option>Army</option><option>Air Force</option><option>Navy</option><option>Marines</option><option>USAR</option><option>ANG</option><option>Other</option><option>Non-member</option></select></div>
+          <div class="field"><label for="vol-rank">Rank / professional category</label><input id="vol-rank" name="rank" maxlength="50" placeholder="Optional"></div>
+          <fieldset class="field full choice-field"><legend>What are you interested in? <span class="optional">(choose any)</span></legend>
+            <div class="choice-grid">
+              <label><input type="checkbox" name="interests" value="Mentoring"> Mentoring</label>
+              <label><input type="checkbox" name="interests" value="ROTC and cadet support"> ROTC and cadet support</label>
+              <label><input type="checkbox" name="interests" value="Scholarships"> Scholarship activities</label>
+              <label><input type="checkbox" name="interests" value="Professional development"> Professional development</label>
+              <label><input type="checkbox" name="interests" value="Chapter administration"> Chapter administration</label>
+              <label><input type="checkbox" name="interests" value="Membership recruitment"> Membership recruitment</label>
+              <label><input type="checkbox" name="interests" value="Communications"> Communications and social media</label>
+              <label><input type="checkbox" name="interests" value="Event planning"> Event planning</label>
+              <label><input type="checkbox" name="interests" value="Fundraising"> Fundraising and outreach</label>
+              <label><input type="checkbox" name="interests" value="Community service"> Community service</label>
+              <label><input type="checkbox" name="interests" value="Technology"> Technology support</label>
+            </div>
+          </fieldset>
+          <div class="field full"><label for="vol-skills">Skills and experience</label><textarea id="vol-skills" name="skills" rows="3" maxlength="1000" placeholder="For example: leadership, finance, IT, communications, grant writing"></textarea></div>
+          <div class="field"><label for="vol-availability">Availability</label><select id="vol-availability" name="availability"><option value="">Select one</option><option>One-time event</option><option>Short-term project</option><option>Recurring service</option><option>Flexible</option></select></div>
+          <div class="field"><label for="vol-hours">Hours available per month</label><input id="vol-hours" name="hoursAvailable" type="number" min="0" max="200" step="1" inputmode="numeric"></div>
+          <fieldset class="field full choice-field"><legend>How would you like to serve?</legend>
+            <div class="choice-grid">
+              <label><input type="checkbox" name="serviceModes" value="Virtual"> Virtually</label>
+              <label><input type="checkbox" name="serviceModes" value="In person"> In person</label>
+              <label><input type="checkbox" name="serviceModes" value="Outside home chapter"> Outside my home chapter</label>
+            </div>
+          </fieldset>
+          <div class="field full choice-field"><label class="consent-label"><input type="checkbox" name="notifications"> I agree to receive volunteer opportunity notifications.</label></div>
+        </div>
+        <div class="form-actions"><button class="btn btn-dark" type="submit">Save volunteer profile</button><button class="btn btn-outline" type="reset" id="profile-reset">Clear form</button></div>
+        <p class="form-feedback" id="profile-feedback" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section coordinator-section" id="coordinator" hidden>
+    <div class="section-head">
+      <div class="eyebrow">Coordinator workspace · Demo</div>
+      <h2>Keep your volunteer roster organized.</h2>
+      <p>Search the saved profiles, update volunteer details through the profile form, and export the roster as a CSV file that opens in Excel.</p>
+    </div>
+    <div class="coordinator-warning"><strong>Demo workspace only:</strong> This page does not verify coordinator permissions. Roster data is available to anyone using this browser. Do not use it to store real or confidential member information.</div>
+    <div class="roster-toolbar">
+      <label class="roster-search-label" for="roster-search">Search volunteers</label>
+      <input id="roster-search" type="search" placeholder="Search name, email, chapter, or interest">
+      <button class="btn btn-gold" id="export-roster" type="button">Export roster CSV</button>
+    </div>
+    <div class="roster-summary" id="roster-summary" aria-live="polite"></div>
+    <h3 class="coordinator-subheading">Application activity</h3>
+    <div class="table-scroll">
+      <table class="roster-table application-table">
+        <caption class="visually-hidden">Submitted demo applications by volunteer and opportunity.</caption>
+        <thead><tr><th scope="col">Volunteer</th><th scope="col">Opportunity</th><th scope="col">Chapter</th><th scope="col">Status</th><th scope="col">Submitted</th><th scope="col">Decision</th></tr></thead>
+        <tbody id="application-body"></tbody>
+      </table>
+      <p class="empty-state" id="application-empty" hidden>No demo applications yet. Volunteer applications will appear here.</p>
+    </div>
+    <p class="form-feedback" id="application-feedback" role="status" aria-live="polite"></p>
+    <div class="table-scroll">
+      <table class="roster-table">
+        <caption class="visually-hidden">Volunteer roster. Profile details are stored in this browser for this prototype.</caption>
+        <thead><tr><th scope="col">Volunteer</th><th scope="col">Member type</th><th scope="col">Chapter</th><th scope="col">Interests</th><th scope="col">Availability</th><th scope="col">Contact</th><th scope="col">Action</th></tr></thead>
+        <tbody id="roster-body"></tbody>
+      </table>
+      <p class="empty-state" id="roster-empty" hidden>No volunteers match your search yet. Profiles saved above will appear here.</p>
+    </div>
+  </section>
+  <dialog class="signup-confirmation" id="signup-confirmation" aria-labelledby="signup-confirmation-title" aria-describedby="signup-confirmation-message">
+    <div class="signup-confirmation-content">
+      <div class="signup-confirmation-mark" aria-hidden="true">✓</div>
+      <div class="eyebrow">Thank you for serving</div>
+      <h2 id="signup-confirmation-title">You’re signed up!</h2>
+      <p id="signup-confirmation-message">We’ve saved your spot. We look forward to seeing you soon.</p>
+      <p class="signup-confirmation-opportunity" id="signup-confirmation-opportunity"></p>
+      <div class="signup-confirmation-actions">
+        <button class="btn btn-dark" id="signup-view-activity" type="button">View my activity</button>
+        <button class="btn btn-outline" id="signup-close" type="button">Keep exploring</button>
+      </div>
+    </div>
+  </dialog>
 </main>
 <footer class="site-footer">
   <div class="footer-grid">
@@ -88,5 +239,6 @@
   <div class="footer-bottom">Concept prototype for client review. Volunteer opportunities and eligibility details are illustrative and pending verification.</div>
 </footer>
 <script src="assets/site.js"></script>
+<script src="assets/volunteer.js"></script>
 </body>
 </html>

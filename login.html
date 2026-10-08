@@ -61,17 +61,46 @@
 
 <section class="page-hero">
   <div class="inner">
-    <div class="breadcrumbs"><a href="index.html">Home</a> / Login</div>
-    <h1>Member login</h1>
-    <p>This page represents the public handoff to the secure ClubExpress member area.</p>
+    <div class="breadcrumbs"><a href="index.html">Home</a> / Volunteer demo login</div>
+    <div class="eyebrow">Interactive prototype</div>
+    <h1>Choose a volunteer demo view.</h1>
+    <p>Preview the volunteer experience or the chapter coordinator workspace. No username or password is needed for this design demo.</p>
   </div>
 </section>
 
-<section class="section"><div class="panel" style="max-width:620px;margin:auto">
-  <div class="field"><label for="user">Email or username</label><input id="user"></div>
-  <div class="field" style="margin-top:14px"><label for="pass">Password</label><input id="pass" type="password"></div>
-  <p><button class="btn btn-gold" type="button">Continue to ClubExpress Login</button></p>
-</div></section>
+<section class="section login-demo-section">
+  <div class="login-demo-note"><strong>Demo only:</strong> These buttons simulate choosing a role; they do not authenticate anyone or protect the browser-stored prototype data. Use synthetic data only.</div>
+  <div class="login-demo-grid">
+    <article class="login-demo-card">
+      <span class="opportunity-tag">Volunteer · Member</span>
+      <h2>My volunteer dashboard</h2>
+      <p>See a member’s volunteer profile, browse assignments, apply for an opportunity, and track submitted or approved service.</p>
+      <ul class="feature-list">
+        <li>Update profile and availability</li>
+        <li>Discover opportunities that support the mission</li>
+        <li>View personal applications and service history</li>
+      </ul>
+      <button class="btn btn-gold" type="button" data-demo-role="volunteer">Continue as a volunteer</button>
+    </article>
+    <article class="login-demo-card login-demo-card-admin">
+      <span class="opportunity-tag">Coordinator · Admin demo</span>
+      <h2>Volunteer coordinator workspace</h2>
+      <p>Preview a chapter leader’s view for keeping volunteer information organized and monitoring opportunities and participation.</p>
+      <ul class="feature-list">
+        <li>Search and update the volunteer roster</li>
+        <li>Review applications and opportunity capacity</li>
+        <li>Export roster data to an Excel-compatible CSV</li>
+      </ul>
+      <button class="btn btn-dark" type="button" data-demo-role="coordinator">Continue as a coordinator</button>
+    </article>
+  </div>
+  <p class="login-demo-status" id="login-demo-status" role="status" aria-live="polite"></p>
+  <div class="login-production-note">
+    <h2>Returning ROCKS members</h2>
+    <p>In production, member identity, membership status, and chapter affiliation should come from ClubExpress. This prototype does not connect to ClubExpress or provide a real member login.</p>
+    <a href="contact.html">Need help? Contact The ROCKS</a>
+  </div>
+</section>
 
 </main>
 
@@ -104,6 +133,7 @@
   <div class="footer-bottom">Concept prototype for client review. All impact figures and eligibility details are placeholders pending verification.</div>
 </footer>
 <script src="assets/site.js"></script>
+<script src="assets/login-demo.js"></script>
 
 </body>
 </html>
